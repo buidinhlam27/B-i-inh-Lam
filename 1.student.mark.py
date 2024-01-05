@@ -21,12 +21,12 @@ def add_mark(students, courses):
 
 def get_info(students):
     x = int(input("How many students: "))
-    for _ in range(x):
+    for i in range(x):
         add_student(students)
 
 def get_courses(courses):
     y = int(input("How many courses: "))
-    for _ in range(y):
+    for i in range(y):
         add_courses(courses)
 
 get_courses(courses)
