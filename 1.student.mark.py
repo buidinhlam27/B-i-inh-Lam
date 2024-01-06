@@ -1,17 +1,17 @@
 students = {}
 courses = {}
-
+#add student using a dictionary that has keys that hold the dictionary that contain the infortion of student
 def add_student(students):
     student_id = input("Enter student ID: ")
     name = input("Enter student name: ")
     dob = input("Enter student date of birth: ")
     students[student_id] = {"name": name, "dob": dob, "transcript": {}}
-
+#add courses to a dictionary
 def add_courses(courses):
     course_id = input("Enter the course ID: ")
     course_name = input("Enter the name of the course: ")
     courses[course_id] = {"course_id": course_id, "course_name": course_name}
-
+#adding marks to each student
 def add_mark(students, courses):
     for student_id in students.keys():
         print(f"Enter the transcript for the following courses for student ID {student_id}:")
