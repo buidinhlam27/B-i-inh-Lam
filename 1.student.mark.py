@@ -41,28 +41,20 @@ def display_students():
         print()
 
 def run():
-    while True:
-        print("\nMenu:")
-        print("1. Add Student")
-        print("2. Add Course")
-        print("3. Add Mark")
-        print("4. Display Students")
-        print("5. Quit")
-
-        choice = input("Enter your choice (1-5): ")
-
-        if choice == '1':
-            add_student()
-        elif choice == '2':
-            add_course()
-        elif choice == '3':
+    st = True
+    while st:
+        amount = int(input("Enter the amount time that you want to add marks: "))
+        for i in range(amount):
             add_mark()
-        elif choice == '4':
-            display_students()
-        elif choice == '5':
-            break
-        else:
-            print("Invalid choice. Please enter a number between 1 and 5.")
+        end = input("Do you want to add more mark(Enter 1 for yes, 0 for no): ")
+        if(end == "1"):
+            st = True
+        if(end == "0"):
+            st = False 
 
+
+
+add_student()
+add_course()
 run()   
 display_students()
