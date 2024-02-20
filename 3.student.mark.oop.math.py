@@ -1,9 +1,6 @@
 import math
 import numpy as np
 
-Students = []
-Courses = []
-
 class Student:
     def __init__(self, student_id, student_name, dob):
         self.name = student_name
@@ -25,6 +22,9 @@ class Course:
         print(f"Name: {self.name} ID: {self.course_id} Amount of credits: {self.course_id}")
 
 class addStuffs:
+    def __init__(self):
+        self.Students = []
+        self.Courses = []
     def getInfo(self):
         y = int(input("Enter the amount of students: "))
         for i in range(y):
@@ -32,7 +32,7 @@ class addStuffs:
             id = input("Enter student id: ")
             dob = input("Enter student date of birth: ")
             student = Student(id, name, dob)
-            Students.append(student)
+            self.Students.append(student)
             print()
 
     def getInfoCourse(self):
@@ -42,43 +42,62 @@ class addStuffs:
             courseId = input("Enter the course id: ")
             etc = int(input("Enter the amount of etcs: "))
             course = Course(courseId, name, etc)
-            Courses.append(course)
+            self.Courses.append(course)
             print()
 
     def addMarks(self):
-        for student in Students:
-            print(f"Input marks for student id {student.student_id}")
-            for course in Courses:
-                x = int(input(f"Mark for course id {course.course_id}: "))
-                student.transcript[course.name] = x
-            print()
+        amount = int(input("Enter the amount of time you want to enter a mark: "))
+        for i in range(amount):
+            studentid = input("Enter student ID: ")
+            courseid = input("Enter the course ID: ")
+            mark = int(input("Enter the mark for the course: "))
+            for student in self.Students:
+                if student.student_id == studentid:
+                    for course_id in self.Courses:
+                        if course_id.course_id == courseid:
+                            student.transcript[course_id.course_id] = mark
+                            print("Mark added successfully.")
+                            break
+                    else:
+                        print("Course not found.")
+                    break
+            else:
+                print("Student not found.")
     def printStuff(self):
-        for student in Students:
+        for student in self.Students:
             print(f"Student id: {student.student_id}")
             print(f"Student name: {student.name}")
             print(f"Student dob: {student.dob}")
-            for course in Courses:
-                print(f"Student mark for course {course.name}: {student.transcript[course.name]}")
+            for course in student.transcript.keys():
+                print(f"Student mark for course {course}: {student.transcript[course]}")
             print(f"Student's gpa: {student.gpa}")
             print()
 
     def getGpa(self):
-        for student in Students:
+        for student in self.Students:
             a = 0
             totalamount = 0
-            for course in Courses:
-                a += (student.transcript[course.name] * course.credit)
-                totalamount += course.credit
+            couretcs = 0
+            for course in student.transcript.keys():
+                for cour in self.Courses:
+                    if course == cour.course_id:
+                        couretcs = cour.credit
+                a += (student.transcript[course] * couretcs)
+                totalamount += couretcs
             student.gpa = math.floor((a / totalamount))
+    def conversion(self):
+        self.Students = np.array(self.Students)
+        self.Courses = np.array(self.Courses)
+    
+    def insertion_sort():
+        for i in range(1, len(self.Students)):
+            key_item = Students[i].gpa
+            j = i - 1
+            while j >= 0 and Students[j].gpa < key_item:
+                Students[j + 1] = Students[j]
+                j -= 1
+            Students[j + 1].gpa = key_item
 
-def insertion_sort():
-    for i in range(1, len(Students)):
-        key_item = Students[i].gpa
-        j = i - 1
-        while j >= 0 and Students[j].gpa < key_item:
-            Students[j + 1] = Students[j]
-            j -= 1
-        Students[j + 1].gpa = key_item
 
 s = addStuffs()
 s.getInfo()
@@ -88,8 +107,7 @@ s.getGpa()
 s.printStuff()
 
 #Since adding items to numpy to array is quite complicated i used the python array first then convert it to numpy array
-Students = np.array(Students)
-Courses = np.array(Courses)
 
-insertion_sort()
+s.conversion()
+s.insertion_sort()
 s.printStuff()

@@ -47,18 +47,17 @@ class AddStuffs:
             course_id = input("Enter the course ID: ")
             mark = int(input("Enter the mark for the course: "))
             for studentid in self.students.keys():
-                if student_id == studentid:
+                if studentid == student_id:
                     for courseid in self.courses.keys():
                         if course_id == courseid:
-                            students[student_id].transcript[course_id] = mark
+                            self.students[studentid].transcript[course_id] = mark
                             print("Mark added successfully.")
                             break
                     else:
                         print("Course not found.")
-                        break
-                else:
-                    print("Student not found.")
                     break
+            else:
+                print("Student not found.")
 
     def print_stuff(self):
         for student_id, student in self.students.items():
