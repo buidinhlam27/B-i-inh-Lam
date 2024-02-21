@@ -50,7 +50,7 @@ class addStuffs:
         for i in range(amount):
             studentid = input("Enter student ID: ")
             courseid = input("Enter the course ID: ")
-            mark = int(input("Enter the mark for the course: "))
+            mark = float(input("Enter the mark for the course: "))
             for student in self.Students:
                 if student.student_id == studentid:
                     for course_id in self.Courses:
@@ -82,6 +82,7 @@ class addStuffs:
                 for cour in self.Courses:
                     if course == cour.course_id:
                         couretcs = cour.credit
+                        break
                 a += (student.transcript[course] * couretcs)
                 totalamount += couretcs
             student.gpa = math.floor((a / totalamount))
@@ -89,14 +90,14 @@ class addStuffs:
         self.Students = np.array(self.Students)
         self.Courses = np.array(self.Courses)
     
-    def insertion_sort():
+    def insertion_sort(self):
         for i in range(1, len(self.Students)):
-            key_item = Students[i].gpa
+            key_item = self.Students[i].gpa
             j = i - 1
-            while j >= 0 and Students[j].gpa < key_item:
-                Students[j + 1] = Students[j]
+            while j >= 0 and self.Students[j].gpa < key_item:
+                self.Students[j + 1] = self.Students[j]
                 j -= 1
-            Students[j + 1].gpa = key_item
+            self.Students[j + 1].gpa = key_item
 
 
 s = addStuffs()
@@ -107,7 +108,6 @@ s.getGpa()
 s.printStuff()
 
 #Since adding items to numpy to array is quite complicated i used the python array first then convert it to numpy array
-
 s.conversion()
 s.insertion_sort()
 s.printStuff()
