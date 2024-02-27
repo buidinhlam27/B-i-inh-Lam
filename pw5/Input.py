@@ -2,6 +2,8 @@ from domains.Student import Student
 from domains.Course import Course
 import math
 import numpy as np
+import zipfile
+import os
 class Input:
     def __init__(self,Students,Courses):
         self.Students = Students
@@ -38,12 +40,12 @@ class Input:
             self.Courses.append(course)
             print()
             try:
-                f = open("courses.txt","w")
-                for course in self.Courses:
-                    f.write(f"Name: {course.name} \n")
-                    f.write(f"Course's id: {course.course_id} \n")
-                    f.write(f"Course's etcs: {course.credit} \n")
-                    f.write(f"\n")
+                with open("courses.txt","w") as f
+                    for course in self.Courses:
+                        f.write(f"Name: {course.name} \n")
+                        f.write(f"Course's id: {course.course_id} \n")
+                        f.write(f"Course's etcs: {course.credit} \n")
+                        f.write(f"\n")
             except IOError:
                 print("Not good")
                 
@@ -78,11 +80,15 @@ class Input:
                 a += (student.transcript[course] * couretcs)
                 totalamount += couretcs
             student.gpa = math.floor((a / totalamount))
-        for student in self.Students:
+            with open('mark.txt', 'w') as f:
+                for i in students 
+                    f.write(f"Gpa of student with id")
             try:
-                t = open("mark.txt","w")
-                t.write(f"Student {student.name}\n")
-                t.write(f"Student's gpa: {student.gpa}")
+                for student in self.Students:
+                    with open("mark.txt","w") as t:
+                        t.write(f"Student {Students[i].name}\n")
+                        t.write(f"Student's gpa: {Students[i].gpa}\n")
+                        t.write(f"\n")
 
 
     def conversion(self):
@@ -97,3 +103,47 @@ class Input:
                 self.Students[j + 1] = self.Students[j]
                 j -= 1
             self.Students[j + 1].gpa = key_item
+    
+    def zipping(self):
+        try:
+            with zipfile.ZipFile('students.dat','w') as z:
+                z.write('students.txt')
+                z.write('courses.txt')
+                z.write('mark.txt')
+        except Exception as e:
+            print(str(e))
+
+    
+    def unzipping(self):
+        if os.path.exist("students.dat"):
+            try:
+                with zipfile.ZipFile('students.dat','r') as unz:
+                    unz.extractall()
+            except Exception as e:
+                print(str(e))
+            print("File students.dat does exist")
+        else: 
+            print("Does not exist")
+        def decompress_files(self):
+        try:
+            with zipfile.ZipFile("students.dat", "r") as zipf:
+                zipf.extractall()
+                loads()
+            print("Files decompressed successfully")
+        except Exception as e:
+            print("Error during decompression:", str(e))
+
+    def loads(self):
+        student_data = {}
+        with open("students.txt", "r") as file:
+            for line in file:
+                pass
+       
+        with open("courses.txt", "r") as file:
+            for line in file:
+                pass
+       
+        with open("marks.txt", "r") as file:
+            for line in file:
+                pass
+        
