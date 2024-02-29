@@ -1,6 +1,0 @@
-Name: cal1 
-Course's id: mat1 
-Course's etcs: 3 
-Name: cal2 
-Course's id: mat2 
-Course's etcs: 4 

@@ -2,9 +2,9 @@ from domains.Student import Student
 from domains.Course import Course
 import math
 import numpy as np
-import zipfile
 import os
 import pickle as pkl
+
 class Input:
     def __init__(self,Students,Courses):
         self.Students = Students
@@ -19,12 +19,12 @@ class Input:
             student = Student(id, name, dob)
             self.Students.append(student)
             print()
-        try:
-            with open("students.pickle","wb") as f:
-                f.dump(self.Students,f)
-        except Exception e:
-            print("Not good")
-        return self.Students
+        with open("students.txt","w+") as f:
+            for student in self.Students:
+                f.write(f"Name: {student.name} \n")
+                f.write(f"Student id: {student.student_id} \n")
+                f.write(f"Student's DOB: {student.dob} \n")
+                f.write("\n")
     
     def getInfoCourse(self):
         t = int(input("Enter the amount of courses: "))
@@ -36,14 +36,14 @@ class Input:
             self.Courses.append(course)
             print()
             try:
-                with open("courses.txt","w") as f
+                with open("courses.txt","w") as f:
                     for course in self.Courses:
                         f.write(f"Name: {course.name} \n")
                         f.write(f"Course's id: {course.course_id} \n")
                         f.write(f"Course's etcs: {course.credit} \n")
                         f.write(f"\n")
             except IOError:
-                print("Not good")
+                print("0")
                 
     def addMarks(self):
         amount = int(input("Enter the amount of time you want to enter a mark: "))
@@ -63,6 +63,7 @@ class Input:
                     break
             else:
                 print("Student not found.")
+    
     def getGpa(self):
         for student in self.Students:
             a = 0
@@ -76,17 +77,10 @@ class Input:
                 a += (student.transcript[course] * couretcs)
                 totalamount += couretcs
             student.gpa = math.floor((a / totalamount))
-            with open('mark.txt', 'w') as f:
-                for i in students 
-                    f.write(f"Gpa of student with id")
-                        t.write(f"Student {Students[i].name}\n")
-                        t.write(f"Student's gpa: {Students[i].gpa}\n")
-                        t.write(f"\n")
-
 
     def conversion(self):
-        self.Students = np.array(self.Students)
-        self.Courses = np.array(self.Courses)
+        self.Students = np.array(self.Students,dtype = object)
+        self.Courses = np.array(self.Courses,dtype = object)
     
     def insertion_sort(self):
         for i in range(1, len(self.Students)):
@@ -97,46 +91,32 @@ class Input:
                 j -= 1
             self.Students[j + 1].gpa = key_item
     
-    def zipping(self):
-        try:
-            with zipfile.ZipFile('students.dat','w') as z:
-                z.write('students.txt')
-                z.write('courses.txt')
-                z.write('mark.txt')
-        except Exception as e:
-            print(str(e))
+    # def zipping(self):
+    #     try:
+    #         with zipfile.ZipFile('students.dat','w') as z:
+    #             z.write('Students.pickle')
+    #             z.write('"Courses.pickle"')
+    #     except Exception as e:
+    #         print(str(e))
 
-    
-    def unzipping(self):
-        if os.path.exist("students.dat"):
-            try:
-                with zipfile.ZipFile('students.dat','r') as unz:
-                    unz.extractall()
-            except Exception as e:
-                print(str(e))
-            print("File students.dat does exist")
-        else: 
-            print("Does not exist")
-        def decompress_files(self):
-        try:
-            with zipfile.ZipFile("students.dat", "r") as zipf:
-                zipf.extractall()
-                loads()
-            print("Files decompressed successfully")
-        except Exception as e:
-            print("Error during decompression:", str(e))
-
-    def loads(self):
-        student_data = {}
-        with open("students.txt", "r") as file:
-            for line in file:
-                pass
-       
-        with open("courses.txt", "r") as file:
-            for line in file:
-                pass
-       
-        with open("marks.txt", "r") as file:
-            for line in file:
-                pass
+    def pickling(self):
+        with open("Students.pickle","wb") as f:
+            pkl.dump(self.Students,f)
+        with open("Courses.pickle","wb") as fi:
+            pkl.dump(self.Courses,fi)
         
+    def depickling(self):
+        # if os.path.exists("students.dat"):
+        #     try:
+        #         with zipfile.ZipFile('students.dat','r') as unz:
+        #             unz.extractall()
+        #     except Exception as e:
+        #         print(str(e))
+        #     print("File students.dat does exist")
+        # else: 
+        #     print("Does not exist")
+        with open("Students.pickle","rb") as f:
+            self.Students = pkl.load(f)
+        with open("Courses.pickle","rb") as fi:
+            self.Courses = pkl.load(fi)
+        print(self.Students[0].name,self.Students[1].name)
