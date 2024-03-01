@@ -1,7 +1,6 @@
 from domains.Student import Student
 from domains.Course import Course
 import math
-import numpy as np
 import os
 import pickle as pkl
 
@@ -53,9 +52,9 @@ class Input:
             mark = float(input("Enter the mark for the course: "))
             for student in self.Students:
                 if student.student_id == studentid:
-                    for course_id in self.Courses:
-                        if course_id.course_id == courseid:
-                            student.transcript[course_id.course_id] = mark
+                    for course in self.Courses:
+                        if course.course_id == courseid:
+                            student.transcript[course.course_id] = mark
                             print("Mark added successfully.")
                             break
                     else:
@@ -68,19 +67,22 @@ class Input:
         for student in self.Students:
             a = 0
             totalamount = 0
-            couretcs = 0
             for course in student.transcript.keys():
+                couretcs = 0
                 for cour in self.Courses:
                     if course == cour.course_id:
                         couretcs = cour.credit
                         break
                 a += (student.transcript[course] * couretcs)
                 totalamount += couretcs
-            student.gpa = math.floor((a / totalamount))
+            if totalamount == 0:
+                student.gpa = 0
+            else:
+                student.gpa = math.floor((a / totalamount))
 
-    def conversion(self):
-        self.Students = np.array(self.Students,dtype = object)
-        self.Courses = np.array(self.Courses,dtype = object)
+    # def conversion(self):
+    #     self.Students = np.array(self.Students,dtype = object)
+    #     self.Courses = np.array(self.Courses,dtype = object)
     
     def insertion_sort(self):
         for i in range(1, len(self.Students)):
@@ -119,4 +121,3 @@ class Input:
             self.Students = pkl.load(f)
         with open("Courses.pickle","rb") as fi:
             self.Courses = pkl.load(fi)
-        print(self.Students[0].name,self.Students[1].name)
