@@ -1,0 +1,8 @@
+Name: khue 
+Student id: 2200444 
+Student's DOB: 10/09 
+
+Name: lam 
+Student id: 22bi13234 
+Student's DOB: 27/07 
+

@@ -1,0 +1,12 @@
+Name: cal2 
+Course's id: mat2 
+Course's etcs: 4 
+
+Name: cal2 
+Course's id: mat2 
+Course's etcs: 4 
+
+Name: cal3 
+Course's id: mat3 
+Course's etcs: 2 
+
